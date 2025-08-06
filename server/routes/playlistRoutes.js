@@ -1,9 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const { generatePlaylist } = require('../controllers/playlistController');
-const verifyToken = require('../middleware/authMiddleware'); // ✅ correct import
+const playlistController = require('../controllers/playlistController');
+const authenticateToken = require('../middleware/authMiddleware');
 
-// ✅ Only this line is needed now
-router.post('/generate', verifyToken, generatePlaylist);
+router.post('/generate', authenticateToken, playlistController.generatePlaylist);
+router.post('/save', authenticateToken, playlistController.savePlaylist);
+
+
+router.get('/saved', authenticateToken, playlistController.getSavedPlaylists);
+
+router.delete('/delete/:id', authenticateToken, playlistController.deletePlaylist);
 
 module.exports = router;

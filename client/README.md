@@ -1,70 +1,133 @@
-# Getting Started with Create React App
+# 🎵 Mood-Based Playlist Generator
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This full-stack web app generates music playlists based on the user's mood using the Spotify API. Built with **React**, **Node.js**, **Express**, and **MySQL**.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 🚀 Features
 
-### `npm start`
+- ✅ Register / Login system (JWT-based authentication)
+- 🎯 Generate playlists based on selected mood
+- 🔗 Uses Spotify API to fetch real-time music data
+- 💾 Save and remove playlists from your profile
+- 🔁 Generate different playlists for the same mood
+- 🔗 Direct Spotify links for each track
+- 📱 Responsive design with Bootstrap
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 🧠 Tech Stack
 
-### `npm test`
+- **Frontend:** React, Bootstrap
+- **Backend:** Node.js, Express
+- **Database:** MySQL
+- **Authentication:** JWT
+- **External API:** Spotify Web API
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## 🔧 Setup Instructions
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 1. Clone the repository
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+git clone https://github.com/eleonora2687/my-mood-playlist.git
+cd my-mood-playlist
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+### 2. Create a `.env` file in the `server/` directory
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```bash
+cd server
+touch .env
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Paste the following content and replace values accordingly:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```env
+PORT=5000
+DB_HOST=localhost
+DB_USER=your_mysql_username
+DB_PASSWORD=your_mysql_password
+DB_NAME=mood_playlist
+JWT_SECRET=your_jwt_secret
+SPOTIFY_CLIENT_ID=your_spotify_client_id
+SPOTIFY_CLIENT_SECRET=your_spotify_client_secret
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+---
 
-## Learn More
+### 3. Install dependencies
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+#### In the server folder:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```bash
+cd server
+npm install
+```
 
-### Code Splitting
+#### In the client folder:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```bash
+cd ../client
+npm install
+```
 
-### Analyzing the Bundle Size
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### 4. Start the app
 
-### Making a Progressive Web App
+#### Start backend (server):
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```bash
+cd server
+npm run dev
+```
 
-### Advanced Configuration
+#### Start frontend (client):
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Open a new terminal:
 
-### Deployment
+```bash
+cd client
+npm start
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Your app will be running at [http://localhost:3000](http://localhost:3000)
 
-### `npm run build` fails to minify
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 🧪 Optional: Create MySQL Database & Tables
+
+You can manually create the database and the required tables:
+
+```sql
+CREATE DATABASE mood_playlist;
+
+USE mood_playlist;
+
+CREATE TABLE users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  username VARCHAR(100),
+  email VARCHAR(255) UNIQUE,
+  password_hash VARCHAR(255)
+);
+
+CREATE TABLE saved_playlists (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT,
+  name VARCHAR(255),
+  mood VARCHAR(100),
+  tracks TEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+```
+
+---
+
+## 🤝 License
+
+This project is open-source and free to use under the [MIT License](LICENSE).

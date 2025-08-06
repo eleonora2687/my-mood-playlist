@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const moodOptions = ['Happy', 'Sad', 'Energetic', 'Chill'];
 
@@ -55,6 +56,32 @@ export default function Moods() {
     }
   };
 
+  const handleSavePlaylist = async () => {
+  try {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      alert("You must be logged in to save playlists.");
+      return;
+    }
+
+    await axios.post('http://localhost:5000/api/playlist/save', {
+      mood: selectedMood,
+      name: `My ${selectedMood} Playlist`,
+      tracks: playlist
+
+    }, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+
+    alert('Playlist saved!');
+  } catch (err) {
+    console.error(err);
+    alert('Failed to save playlist');
+  }
+};
+
+
+
   return (
     <div className="container mt-5" style={{ maxWidth: 600 }}>
       <div className="d-flex justify-content-between align-items-center mb-4">
@@ -81,6 +108,14 @@ export default function Moods() {
 
         <button type="submit" className="btn btn-primary">Generate Playlist</button>
       </form>
+
+      <button
+  className="btn btn-primary mt-3"
+  onClick={handleSavePlaylist}
+>
+  Save Playlist
+</button>
+
 
       {message && <div className="alert alert-warning mt-3">{message}</div>}
 
