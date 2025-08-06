@@ -1,4 +1,3 @@
-Here's the **completed and cleaned-up README** for your **Mood-Based Playlist Generator** project, ready for GitHub:
 
 ---
 
