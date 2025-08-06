@@ -1,7 +1,3 @@
-
----
-
-````markdown
 # 🎵 Mood-Based Playlist Generator
 
 This full-stack web app generates music playlists based on the user's mood using the Spotify API. Built with **React**, **Node.js**, **Express**, and **MySQL**.
@@ -13,6 +9,9 @@ This full-stack web app generates music playlists based on the user's mood using
 - ✅ Register / Login system (JWT-based authentication)
 - 🎯 Generate playlists based on selected mood
 - 🔗 Uses Spotify API to fetch real-time music data
+- 💾 Save and remove playlists from your profile
+- 🔁 Generate different playlists for the same mood
+- 🔗 Direct Spotify links for each track
 - 📱 Responsive design with Bootstrap
 
 ---
@@ -34,7 +33,7 @@ This full-stack web app generates music playlists based on the user's mood using
 ```bash
 git clone https://github.com/eleonora2687/my-mood-playlist.git
 cd my-mood-playlist
-````
+```
 
 ---
 
@@ -58,6 +57,7 @@ SPOTIFY_CLIENT_ID=your_spotify_client_id
 SPOTIFY_CLIENT_SECRET=your_spotify_client_secret
 ```
 
+---
 
 ### 3. Install dependencies
 
@@ -101,7 +101,7 @@ Your app will be running at [http://localhost:3000](http://localhost:3000)
 
 ## 🧪 Optional: Create MySQL Database & Tables
 
-You can manually create the database:
+You can manually create the database and the required tables:
 
 ```sql
 CREATE DATABASE mood_playlist;
@@ -114,13 +114,20 @@ CREATE TABLE users (
   email VARCHAR(255) UNIQUE,
   password_hash VARCHAR(255)
 );
+
+CREATE TABLE saved_playlists (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT,
+  name VARCHAR(255),
+  mood VARCHAR(100),
+  tracks TEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
 ```
 
+---
 
 ## 🤝 License
 
 This project is open-source and free to use under the [MIT License](LICENSE).
-
-```
-
-
